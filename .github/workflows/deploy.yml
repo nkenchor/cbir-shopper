@@ -6,7 +6,7 @@ name: Deploy Flask App
 on:
   push:
     branches:
-      - main # Change this to your main branch name
+      - deploy # Change this to your main branch name
 
 jobs:
   deploy:
@@ -46,5 +46,7 @@ jobs:
         host: 34.172.101.81
         script: |
                 source ~/venv/bin/activate
+                rm rf ~/cbir-deploy/*
                 cd ~/cbir-deploy
                 ls -lrt
+                pm2 ls
