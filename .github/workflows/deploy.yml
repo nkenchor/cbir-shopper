@@ -37,7 +37,7 @@ jobs:
           key: ${{ secrets.DEV_SECRET_01 }}
           host: 34.172.101.81
           source: "."
-          target: /home/echiejina/cbir-deploy
+          target: /home/echiejina/cbir
     - name: Executing remote ssh commands using ssh key
       uses: appleboy/ssh-action@master
       with:
@@ -47,7 +47,8 @@ jobs:
         script: |
                 source ~/venv/bin/activate
                 rm -rf ~/cbir-deploy/*
+                cp -r ~/cbir/* ~/cbir-deploy
                 cd ~/cbir-deploy
-                pip3 install -r requirements.txt
                 ls -lrt
+                pip3 install -r requirements.txt
                 pm2 ls
