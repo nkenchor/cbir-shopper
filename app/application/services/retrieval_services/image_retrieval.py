@@ -23,11 +23,11 @@ def download_image(url, filename):
         # Handle failure, e.g., log the error or raise an exception
         pass
 
-def search_product_by_keyword(filename,keyword):
+def search_product_by_keyword(filename,keyword,no_of_pages):
     if not keyword:
         return jsonify(error="Keyword is required."), 400
     
-    products = product_retrieval.search_product_by_keyword(keyword)
+    products = product_retrieval.search_product_by_keyword(keyword,no_of_pages)
 
     if products:
         products_response = []
@@ -112,7 +112,7 @@ def retrieve_similar_images(image_uuid, uploaded_dir, downloaded_dir, metric="eu
 
    # Sort images based on similarity scores (descending because higher score means more similarity)
     sorted_images = sorted(image_similarities.keys(), key=lambda x: image_similarities[x], reverse=True)
-    
+
     # Retrieve product details for the top 10 similar images
     top_products = []
     for img_file in sorted_images[:10]:
@@ -122,9 +122,5 @@ def retrieve_similar_images(image_uuid, uploaded_dir, downloaded_dir, metric="eu
         if product_data:  # Checking if data exists
             product_data['similarity_score'] = float(image_similarities[img_file])  # Add the similarity score to the product data
             top_products.append(product_data)
-    
-    # Sort top_products by similarity_score
-    top_products = sorted(top_products, key=lambda x: x['similarity_score'], reverse=True)
-    
-    return top_products  # Return top 10 similar products' details
 
+    return top_products  # Return top 10 similar products' details

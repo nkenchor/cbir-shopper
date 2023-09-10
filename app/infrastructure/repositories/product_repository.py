@@ -1,5 +1,6 @@
 from app.infrastructure.utilities import api_utils
 from app.domain.entity import product
+from typing import List, Optional
 def find_by_image(image):
     data = api_utils.fetch_amazon_data_from_api(image)
     if data:
@@ -11,12 +12,14 @@ def find_by_image(image):
         )
     return None
 
-def find_by_keyword(keyword):
-    response_data = api_utils.fetch_amazon_data_by_keyword(keyword)
+
+
+def find_by_keyword(keyword, no_of_pages):
+    response_data = api_utils.fetch_amazon_data_by_keyword(keyword, no_of_pages)
     products = []
-    
-    if response_data and response_data.get('status') == 'OK':
-        for product_data in response_data['data'].get('products', []):
+    print(response_data)
+    if response_data:
+        for product_data in response_data:
             product_instance = product.Product(
                 id=product_data.get("asin"),
                 product_title=product_data.get("product_title"),
@@ -36,5 +39,6 @@ def find_by_keyword(keyword):
             products.append(product_instance)
     
     return products
+
 
 
