@@ -47,7 +47,7 @@ jobs:
         script: |
                 source ~/venv/bin/activate
                 cd ~/cbir-shopper
-                rm -rf requirements.txt main.py images app 
+                rm -rf ~/cbir-shopper/*
                 
                 cp -r ~/cbir/* ~/cbir-shopper
                 cd ~/cbir-shopper
@@ -55,5 +55,6 @@ jobs:
                 
                 pip3 install -r requirements.txt
                 pm2 ls
-                pm2 restart cbir-shopper
+                pm2 delete all
+                pm2 start --name my-python-app python3 main.py
                 pm2 ls
