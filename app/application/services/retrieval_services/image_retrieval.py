@@ -106,7 +106,7 @@ def retrieve_similar_images(image_uuid, uploaded_dir, downloaded_dir, metric="eu
             raise ValueError(f"Unsupported metric: {metric}")
  
         
-        similarity_score = np.exp(-distance) * 100  # Exponential transformation to get similarity score
+        similarity_score = np.exp(-distance)   # Exponential transformation to get similarity score
         # image_scores[image_file] = distance
         image_similarities[image_file] = similarity_score
 
@@ -120,6 +120,7 @@ def retrieve_similar_images(image_uuid, uploaded_dir, downloaded_dir, metric="eu
         asin = os.path.splitext(img_file)[0].split(".")[-1]
         product_data = db.get_product_details_from_db(asin)
         if product_data:  # Checking if data exists
+            
             product_data['similarity_score'] = float(image_similarities[img_file])  # Add the similarity score to the product data
             top_products.append(product_data)
 
