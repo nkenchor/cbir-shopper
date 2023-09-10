@@ -29,11 +29,11 @@ jobs:
     
       uses: appleboy/scp-action@master
       env:
-          username: ubuntu
+          username: echiejina
           key: ${{ secrets.DEV_SECRET_01 }}
           host: 34.172.101.81
       with:
-          username: ubuntu
+          username: echiejina
           key: ${{ secrets.DEV_SECRET_01 }}
           host: 34.172.101.81
           source: "."
@@ -41,7 +41,7 @@ jobs:
     - name: Executing remote ssh commands using ssh key
       uses: appleboy/ssh-action@master
       with:
-        username: ubuntu
+        username: echiejina
         key: ${{ secrets.DEV_SECRET_01 }}
         host: 34.172.101.81
         script: |
