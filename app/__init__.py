@@ -7,7 +7,7 @@ import app.application.services.yolo_services.download_yolo_model as download_yo
 import app.application.services.retrieval_services.load_google_vector as download_suggestion_model
 import app.application.services.resnet_services.download_resnet_model as download_resnet_model
 from app.infrastructure.utilities.database_utils import setup_db
-
+from flasgger import Swagger
 
 def download_models():
     # Model downloading logic
@@ -20,13 +20,15 @@ def download_models():
 
 def create_app():
     app = Flask(__name__)
+    Swagger(app)
     app.register_blueprint(api)  # Register the blueprint
+   
     # Set up the database
     setup_db()
     # Download and train models
-    download_models()
+    # download_models()
     print("Starting the YOLO training process...")
-    yolo.train_yolo_model()
+    # yolo.train_yolo_model()
     print("Finished the YOLO training process.")
 
     return app

@@ -9,3 +9,4 @@ Pillow
 tensorflow
 Werkzeug
 spicy
+flasgger
