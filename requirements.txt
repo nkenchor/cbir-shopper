@@ -1,7 +1,7 @@
 gensim
 numpy
 Flask
-python-decouple
+ultralytics
 requests
 torch
 torchvision

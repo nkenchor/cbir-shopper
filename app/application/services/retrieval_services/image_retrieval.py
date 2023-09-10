@@ -106,8 +106,8 @@ def retrieve_similar_images(image_uuid, uploaded_dir, downloaded_dir, metric="eu
             raise ValueError(f"Unsupported metric: {metric}")
  
         
-        similarity_score = np.exp(-distance)  # Exponential transformation to get similarity score
-        image_scores[image_file] = distance
+        similarity_score = np.exp(-distance) * 100  # Exponential transformation to get similarity score
+        # image_scores[image_file] = distance
         image_similarities[image_file] = similarity_score
 
    # Sort images based on similarity scores (descending because higher score means more similarity)
