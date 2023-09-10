@@ -180,3 +180,4 @@ app/application/services/resnet_services/model/pretrained/resnet101_weights_tf_d
 app/application/services/resnet_services/model/pretrained/resnet50-0676ba61.pth
 
 app/infrastructure/database/cbir.db
+
