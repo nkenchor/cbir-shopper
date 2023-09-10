@@ -9,7 +9,7 @@ from app.application.services.resnet_services.download_resnet_model import BASE_
 RESNETMODEL_101_PATH = os.path.join(BASE_DIR, 'model', 'pretrained', 'resnet101_weights_tf_dim_ordering_tf_kernels.h5')
 RESNETCLASSINDEX = os.path.join(BASE_DIR, 'model', 'data', 'imagenet_class_index.json')
 
-def classify_objects_with_resnet(image_path, confidence_threshold=0.5):
+def classify_objects_with_resnet(image_path, confidence_threshold=0.3):
     start_time = time.time()
 
     RESNET_101_MODEL = load_resnet_101_model()

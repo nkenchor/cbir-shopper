@@ -3,7 +3,6 @@ numpy
 Flask
 python-decouple
 requests
-fasttext
 torch
 torchvision
 Pillow
