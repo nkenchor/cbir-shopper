@@ -158,3 +158,23 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+
+
+runs/
+# Ignore everything in the directory
+images/downloaded/*
+images/uploaded/*
+
+# But don't ignore the .gitkeep file
+!images/downloaded/.gitkeep
+!images/uploaded/.gitkeep
+
+*.pth
+*.h5
+*.pt
+resnet101_weights_tf_dim_ordering_tf_kernels.h5
+GoogleNews-vectors-negative300.bin
+resnet50-0676ba61.pth
+
+app/application/services/resnet_services/model/pretrained/resnet101_weights_tf_dim_ordering_tf_kernels.h5
+app/application/services/resnet_services/model/pretrained/resnet50-0676ba61.pth
