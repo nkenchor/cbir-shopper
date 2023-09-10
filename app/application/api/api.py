@@ -75,12 +75,15 @@ def search_product(image_uuid):
     data = request.get_json()
     if not data or 'keyword' not in data:
         return jsonify(error="Keyword is required."), 400
+    if not data or 'pages' not in data:
+        return jsonify(error="Pages is required."), 400
     
     keyword = data['keyword']
+    no_of_pages = data['pages']
     
     
     try:
-        results = image_retrieval.search_product_by_keyword(image_uuid, keyword) #uuid is the filename without the extension
+        results = image_retrieval.search_product_by_keyword(image_uuid, keyword,no_of_pages) #uuid is the filename without the extension
         return results
     except Exception as e:
         return jsonify(error=f"Error searching product: {str(e)}"), 500

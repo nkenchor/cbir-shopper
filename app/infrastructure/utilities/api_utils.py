@@ -24,7 +24,10 @@ def fetch_amazon_data_from_api(image):
     else:
         return None
 
-def fetch_amazon_data_by_keyword(keyword, number_of_pages=10, country="GB", category_id="aps"):
+
+
+
+def fetch_amazon_data_by_keyword(keyword, number_of_pages=10, country="US", category_id="aps"):
     all_results = []  # List to store results from all pages
 
     headers = {
@@ -35,18 +38,41 @@ def fetch_amazon_data_by_keyword(keyword, number_of_pages=10, country="GB", cate
     for page_number in range(1, number_of_pages + 1):
         querystring = {
             "query": keyword,
-            "page": str(page_number),  # Convert page number to string
+            "page": str(page_number),
             "country": country,
             "category_id": category_id
         }
 
-        response = requests.get(RAPIDAPI_ENDPOINT, headers=headers, params=querystring)
-        
-        if response.status_code == 200:
-            all_results.extend(response.json())
-        else:
-            # Optionally, handle failed requests or break out of the loop. 
-            # This decision depends on your specific needs.
-            pass
+        try:
+            response = requests.request("GET", RAPIDAPI_ENDPOINT, headers=headers, params=querystring)
+            response.raise_for_status()  # will raise an HTTPError if the HTTP request returned an unsuccessful status code
+
+            response_json = response.json()
+
+            # If there's an error key in the response, handle it
+            if 'error' in response_json:
+                error_message = response_json['error']
+                print(f"API Error on page {page_number}: {error_message}")
+                if "Invalid URL 'None'" in error_message:
+                    print("Detected absence of more pages. Terminating the fetch.")
+                    break
+
+            # Ensure 'data' and 'products' keys exist in response JSON
+            elif 'data' in response_json and 'products' in response_json['data']:
+                products = response_json['data']['products']
+
+                if not products:  # if products list is empty, break out of loop
+                    print(f"No more products found at page {page_number}. Stopping the fetch.")
+                    break
+
+                all_results.extend(products)
+
+        except requests.HTTPError as http_err:
+            print(f"HTTP error occurred on page {page_number}: {http_err}")
+            # Added this to break out of the loop when an HTTP error occurs
+            break
+        except Exception as err:
+            print(f"An error occurred on page {page_number}: {err}")
+            break
 
     return all_results

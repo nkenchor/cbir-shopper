@@ -171,10 +171,13 @@ images/uploaded/*
 
 *.pth
 *.h5
-*.pt
+
 resnet101_weights_tf_dim_ordering_tf_kernels.h5
 GoogleNews-vectors-negative300.bin
 resnet50-0676ba61.pth
 
 app/application/services/resnet_services/model/pretrained/resnet101_weights_tf_dim_ordering_tf_kernels.h5
 app/application/services/resnet_services/model/pretrained/resnet50-0676ba61.pth
+
+app/infrastructure/database/cbir.db
+
