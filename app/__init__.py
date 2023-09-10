@@ -26,9 +26,9 @@ def create_app():
     # Set up the database
     setup_db()
     # Download and train models
-    # download_models()
+    download_models()
     print("Starting the YOLO training process...")
-    # yolo.train_yolo_model()
+    yolo.train_yolo_model()
     print("Finished the YOLO training process.")
 
     return app

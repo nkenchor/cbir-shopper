@@ -1,5 +1,6 @@
 import os
-from flask import jsonify, request,Blueprint 
+from flask import jsonify, request,Blueprint
+
 from app.application.services.retrieval_services import image_retrieval as image_retrieval
 from app.application.services.resnet_services import classify_objects_with_resnet  as resnet_classification
 from app.application.services.yolo_services import identify_objects_with_yolo  as yolo_identification
@@ -18,6 +19,7 @@ UPLOADED = os.path.join(BASE_DIR, '../../../images','uploaded')
 DOWNLOADED = os.path.join(BASE_DIR, '../../../images','downloaded')
 
 @api.route('/', methods=['GET'])
+
 def hello_world():
     """
     This is the hello world endpoint

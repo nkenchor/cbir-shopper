@@ -10,3 +10,4 @@ tensorflow
 Werkzeug
 spicy
 flasgger
+flask-cors
