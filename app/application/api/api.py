@@ -1,5 +1,6 @@
 import os
 from flask import jsonify, request,Blueprint
+from flask_cors import cross_origin
 
 from app.application.services.retrieval_services import image_retrieval as image_retrieval
 from app.application.services.resnet_services import classify_objects_with_resnet  as resnet_classification
@@ -12,6 +13,7 @@ from werkzeug.utils import secure_filename
 import glob
 
 
+
 api = Blueprint('api', __name__)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -19,7 +21,7 @@ UPLOADED = os.path.join(BASE_DIR, '../../../images','uploaded')
 DOWNLOADED = os.path.join(BASE_DIR, '../../../images','downloaded')
 
 @api.route('/', methods=['GET'])
-
+@cross_origin()
 def hello_world():
     """
     This is the hello world endpoint

@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from app.application.api.api import api  # This imports the Blueprint
 
 # Your other imports
@@ -20,15 +21,16 @@ def download_models():
 
 def create_app():
     app = Flask(__name__)
+    CORS(app)
     Swagger(app)
     app.register_blueprint(api)  # Register the blueprint
    
     # Set up the database
     setup_db()
     # Download and train models
-    download_models()
+    # download_models()
     print("Starting the YOLO training process...")
-    yolo.train_yolo_model()
+    # yolo.train_yolo_model()
     print("Finished the YOLO training process.")
 
     return app
