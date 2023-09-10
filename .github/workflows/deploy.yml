@@ -46,12 +46,14 @@ jobs:
         host: 34.172.101.81
         script: |
                 source ~/venv/bin/activate
-                cd ~/cbir-deploy
+                cd ~/cbir-shopper
                 rm -rf requirements.txt main.py images app 
                 
-                cp -r ~/cbir/* ~/cbir-deploy
-                cd ~/cbir-deploy
+                cp -r ~/cbir/* ~/cbir-shopper
+                cd ~/cbir-shopper
                 ls -lrt
                 
                 pip3 install -r requirements.txt
+                pm2 ls
+                pm2 restart cbir-shopper
                 pm2 ls
