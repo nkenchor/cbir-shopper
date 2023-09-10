@@ -6,7 +6,7 @@ name: Deploy Flask App
 on:
   push:
     branches:
-      - main # Change this to your main branch name
+      - deploy # Change this to your main branch name
 
 jobs:
   deploy:
