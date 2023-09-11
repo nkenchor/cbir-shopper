@@ -18,9 +18,9 @@ def download_googlenews_vector(base_directory=BASE_DIR):
     # Initialize the ModelDownloader with the 'model/pretrained' folder path
     downloader = ModelDownloader(base_dir=base_directory, model_folder=os.path.join(BASE_DIR, 'model', 'pretrained'))
     downloader.download(NLP_NAME, GOOGLENEWS_VECTORS_URL)
-    LOADED_MODEL = load_model(MODEL_PATH)
+    LOADED_MODEL = load_pretrained_google_model(MODEL_PATH)
 
-def load_model():
+def load_pretrained_google_model():
     global LOADED_MODEL
     
     if LOADED_MODEL is not None:
@@ -38,7 +38,7 @@ def get_or_load_nlp_model():
     if not model_exists():
         download_googlenews_vector()
     if LOADED_MODEL is None:
-        LOADED_MODEL = load_model()
+        LOADED_MODEL = load_pretrained_google_model()
     return LOADED_MODEL
 
 if __name__ == "__main__":

@@ -13,7 +13,7 @@ def identify_objects_with_yolo(image_path):
         list: List of bounding boxes.
     """
     # Load the model's state from disk and instantiate the model
-    model = yolo_loader.TRAINED_MODEL
+    model = yolo_loader.load_pretrained_yolo_model()
     # Predict on an image
     results = model(image_path)
 

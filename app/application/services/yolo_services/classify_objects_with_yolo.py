@@ -9,7 +9,7 @@ def classify_objects_with_yolo(image_path, confidence_threshold=0.5):
     start_time = time.time()
 
     # Load the model's state from disk and instantiate the model
-    model = yolo_loader.LOADED_MODEL
+    model = yolo_loader.load_pretrained_yolo_model()
     results = model(image_path)
 
     classifications = []
