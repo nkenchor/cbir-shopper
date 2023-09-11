@@ -4,7 +4,7 @@ import tensorflow as tf
 import json
 import time
 from app.application.services.retrieval_services import product_suggestion_service as suggestions
-from app.application.services.resnet_services.download_resnet_model import BASE_DIR, load_resnet_101_model
+from app.application.services.resnet_services.resnet_loader import BASE_DIR, load_resnet_101_model
 
 RESNETMODEL_101_PATH = os.path.join(BASE_DIR, 'model', 'pretrained', 'resnet101_weights_tf_dim_ordering_tf_kernels.h5')
 RESNETCLASSINDEX = os.path.join(BASE_DIR, 'model', 'data', 'imagenet_class_index.json')

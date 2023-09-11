@@ -1,8 +1,8 @@
 
-from app.application.services.retrieval_services.load_google_vector import get_model
+from app.application.services.retrieval_services import google_vector_loader
 
 def get_suggestions(word, topn=10):
-    model = get_model()  # get the model using lazy-loading method
+    model = google_vector_loader.LOADED_MODEL  # get the model using lazy-loading method
     try:
         # First, try to get synonyms for the word/phrase as a whole
         return [item[0].lower() for item in model.similar_by_word(word, topn=topn)]

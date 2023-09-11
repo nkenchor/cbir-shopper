@@ -3,21 +3,21 @@ from flask_cors import CORS
 from app.application.api.api import api  # This imports the Blueprint
 
 # Your other imports
-import app.application.services.yolo_services.yolo_model_training as yolo
-import app.application.services.yolo_services.download_yolo_model as download_yolo_model
-import app.application.services.retrieval_services.load_google_vector as download_suggestion_model
-import app.application.services.resnet_services.download_resnet_model as download_resnet_model
+import app.application.services.yolo_services.yolo_loader as yolo
+import app.application.services.yolo_services.yolo_loader as yolo_loader
+import app.application.services.retrieval_services.google_vector_loader as google_loader
+import app.application.services.resnet_services.resnet_loader as resnet_loader
 from app.infrastructure.utilities.database_utils import setup_db
 from flasgger import Swagger
 
 def download_models():
     # Model downloading logic
     print("Downloading Yolo model...")
-    download_yolo_model.download_yolo_model()
+    yolo_loader.get_or_load_yolo_model()
     print("Downloading Google Word2Vec models...")
-    download_suggestion_model.download_googlenews_vector()
+    google_loader.get_or_load_nlp_model()
     print("Downloading Resnet models...")
-    download_resnet_model.download_resnet_models()
+    resnet_loader.get_or_load_resnet_models()
 
 def create_app():
     app = Flask(__name__)
@@ -29,9 +29,7 @@ def create_app():
     setup_db()
     # Download and train models
     download_models()
-    print("Starting the YOLO training process...")
-    yolo.train_yolo_model()
-    print("Finished the YOLO training process.")
+  
 
     return app
 

@@ -6,8 +6,8 @@ from app.application.services.retrieval_services import image_retrieval as image
 from app.application.services.resnet_services import classify_objects_with_resnet  as resnet_classification
 from app.application.services.yolo_services import identify_objects_with_yolo  as yolo_identification
 from app.application.services.yolo_services import classify_objects_with_yolo  as yolo_classification
-from app.application.services.yolo_services import yolo_model_training as yolo_model_training
-from app.application.services.retrieval_services import image_upload as image_upload
+from app.application.services.yolo_services import yolo_loader as yolo_loader
+from app.infrastructure.utilities import image_utils as img
 from app.application.services.resnet_services import feature_extraction_with_resnet as feature_extraction
 from werkzeug.utils import secure_filename
 import glob
@@ -16,9 +16,6 @@ import glob
 
 api = Blueprint('api', __name__)
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-UPLOADED = os.path.join(BASE_DIR, '../../../images','uploaded')
-DOWNLOADED = os.path.join(BASE_DIR, '../../../images','downloaded')
 
 @api.route('/', methods=['GET'])
 @cross_origin()
@@ -68,7 +65,7 @@ def upload_image():
               type: string
               description: Error message
     """
-    uuid, file_path, error, code = image_upload.handle_image_upload()
+    uuid, file_path, error, code = img.handle_image_upload()
     if error:
         return error, code
     return jsonify(uuid=uuid, message="Image uploaded successfully."), 200
@@ -129,7 +126,7 @@ def classify_objects_with_resnet(image_uuid):
               type: string
               description: Error message
     """
-    file_paths = glob.glob(os.path.join(UPLOADED, f"{image_uuid}.*"))
+    file_paths = glob.glob(os.path.join(img.UPLOADED, f"{image_uuid}.*"))
     if not file_paths:
         return jsonify(error="Image not found for the provided UUID."), 404
     file_path = file_paths[0]  # Since UUID is unique, there should be only one match
@@ -185,7 +182,7 @@ def classify_objects_with_yolo(image_uuid):
               type: string
               description: Error message
     """
-    file_paths = glob.glob(os.path.join(UPLOADED, f"{image_uuid}.*"))
+    file_paths = glob.glob(os.path.join(img.UPLOADED, f"{image_uuid}.*"))
     if not file_paths:
         return jsonify(error="Image not found for the provided UUID."), 404
     file_path = file_paths[0]  # Since UUID is unique, there should be only one match
@@ -242,7 +239,7 @@ def identify_objects_with_yolo(image_uuid):
               type: string
               description: Error message
     """
-    file_paths = glob.glob(os.path.join(UPLOADED, f"{image_uuid}.*"))
+    file_paths = glob.glob(os.path.join(img.UPLOADED, f"{image_uuid}.*"))
     if not file_paths:
         return jsonify(error="Image not found for the provided UUID."), 404
     file_path = file_paths[0]  # Since UUID is unique, there should be only one match
@@ -383,7 +380,7 @@ def hybrid_classification(image_uuid):
               type: string
               description: Error message
     """
-    file_paths = glob.glob(os.path.join(UPLOADED, f"{image_uuid}.*"))
+    file_paths = glob.glob(os.path.join(img.UPLOADED, f"{image_uuid}.*"))
     if not file_paths:
         return jsonify(error="Image not found for the provided UUID."), 404
     file_path = file_paths[0]  # Since UUID is unique, there should be only one match
@@ -474,7 +471,7 @@ def retrieve_similar_images(image_uuid):
         return jsonify(error="Algorithm is required, like euclidean."), 400
     
     algo = data['algo']
-    similar_images = image_retrieval.retrieve_similar_images(image_uuid, UPLOADED, DOWNLOADED, algo)
+    similar_images = image_retrieval.retrieve_similar_images(image_uuid, img.UPLOADED, img.DOWNLOADED, algo)
     return jsonify(similar_images)
 
 

@@ -1,6 +1,6 @@
 
 import json
-from app.application.services.yolo_services import yolo_model_training as yolo_model_training
+from app.application.services.yolo_services import yolo_loader as yolo_loader
 
 def identify_objects_with_yolo(image_path):
     """
@@ -13,7 +13,7 @@ def identify_objects_with_yolo(image_path):
         list: List of bounding boxes.
     """
     # Load the model's state from disk and instantiate the model
-    model = yolo_model_training.TRAINED_MODEL
+    model = yolo_loader.TRAINED_MODEL
     # Predict on an image
     results = model(image_path)
 

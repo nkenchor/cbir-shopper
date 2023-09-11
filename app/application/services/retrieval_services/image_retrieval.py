@@ -7,21 +7,9 @@ from app.application.services.resnet_services import feature_extraction_with_res
 from flask import jsonify
 from app.application.services.retrieval_services import product_retrieval
 from app.infrastructure.utilities import database_utils as db 
-# Define a directory to store downloaded images
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DOWNLOADED = os.path.join(BASE_DIR, '../../../../images','downloaded')
+from app.infrastructure.utilities import image_utils as img
 
 
-def download_image(url, filename):
-    """Downloads an image from a URL and saves it with the given filename."""
-    response = requests.get(url)
-    if response.status_code == 200:
-        with open(os.path.join(DOWNLOADED, filename), 'wb') as file:
-            for chunk in response.iter_content(1024):
-                file.write(chunk)
-    else:
-        # Handle failure, e.g., log the error or raise an exception
-        pass
 
 def search_product_by_keyword(filename,keyword,no_of_pages):
     if not keyword:
@@ -34,7 +22,7 @@ def search_product_by_keyword(filename,keyword,no_of_pages):
         for product in products:
             # Download the image
             image_filename = f"{filename}.{product.id}.jpg"  # assuming images are in JPG format
-            download_image(product.product_photo, image_filename)
+            img.download_image(product.product_photo, image_filename)
             
             # Construct the product data with the local image path
             product_data = {
@@ -46,7 +34,7 @@ def search_product_by_keyword(filename,keyword,no_of_pages):
                 "product_star_rating": product.product_star_rating,
                 "product_num_ratings": product.product_num_ratings,
                 "product_url": product.product_url,
-                "product_photo": os.path.join(DOWNLOADED, image_filename),  # Update to local path
+                "product_photo": os.path.join(img.DOWNLOADED, image_filename),  # Update to local path
                 "product_num_offers": product.product_num_offers,
                 "product_minimum_offer_price": product.product_minimum_offer_price,
                 "is_best_seller": product.is_best_seller,

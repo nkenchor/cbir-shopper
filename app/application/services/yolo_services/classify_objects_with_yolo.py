@@ -1,5 +1,5 @@
 import json
-from app.application.services.yolo_services import yolo_model_training
+from app.application.services.yolo_services import yolo_loader
 from app.application.services.retrieval_services import product_suggestion_service as suggestions
 
 import time
@@ -9,7 +9,7 @@ def classify_objects_with_yolo(image_path, confidence_threshold=0.5):
     start_time = time.time()
 
     # Load the model's state from disk and instantiate the model
-    model = yolo_model_training.load_trained_yolo_model()
+    model = yolo_loader.LOADED_MODEL
     results = model(image_path)
 
     classifications = []

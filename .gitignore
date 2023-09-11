@@ -162,12 +162,12 @@ cython_debug/
 
 runs/
 # Ignore everything in the directory
-images/downloaded/*
-images/uploaded/*
+app/infrastructure/images/downloaded/*
+app/infrastructure/images/uploaded/*
 
 # But don't ignore the .gitkeep file
-!images/downloaded/.gitkeep
-!images/uploaded/.gitkeep
+!app/infrastructure/images/downloaded/.gitkeep
+!app/infrastructure/images/uploaded/.gitkeep
 
 *.pth
 *.h5

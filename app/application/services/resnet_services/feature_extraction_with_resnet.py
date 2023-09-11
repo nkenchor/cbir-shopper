@@ -4,7 +4,7 @@ import torchvision.models as models
 import torchvision.transforms as transforms
 from PIL import Image
 import numpy as np
-from app.application.services.resnet_services.download_resnet_model import RESNET_50_MODEL,load_resnet_50_model
+from app.application.services.resnet_services.resnet_loader import RESNET_50_MODEL,load_resnet_50_model
 import numpy as np
 from scipy.spatial import distance
 
