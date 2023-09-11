@@ -4,13 +4,20 @@ import uuid
 from werkzeug.utils import secure_filename
 from flask import jsonify, request
 from app.infrastructure.utilities import api_utils as utils
+from pathlib import Path
 
-# Base directory points to utilities, so we navigate two steps back to the main directory
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Define directories
-UPLOADED = os.path.join(BASE_DIR, '..', 'images', 'uploaded')
-DOWNLOADED = os.path.join(BASE_DIR, '..', 'images', 'downloaded')
+
+# Using pathlib to get the directory of the current file
+BASE_DIR = Path(__file__).parent
+
+# Define directories using parent for clarity instead of '..'
+UPLOADED = BASE_DIR.parent / 'images' / 'uploaded'
+DOWNLOADED = BASE_DIR.parent / 'images' / 'downloaded'
+
+# Convert to absolute paths
+UPLOADED = UPLOADED.resolve()
+DOWNLOADED = DOWNLOADED.resolve()
 
 def handle_image_upload():
     """

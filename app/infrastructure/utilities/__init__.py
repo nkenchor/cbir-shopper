@@ -1,8 +1,15 @@
 import os
 from app.infrastructure.utilities import image_utils
 
-# Base directory points to utilities, so we navigate two steps back to the main directory
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+from pathlib import Path
 
-image_utils.UPLOADED = os.path.join(BASE_DIR, '..', 'images', 'uploaded')
-image_utils.DOWNLOADED = os.path.join(BASE_DIR, '..', 'images', 'downloaded')
+# Using pathlib to get the directory of the current file
+BASE_DIR = Path(__file__).parent
+
+# Define directories using parent for clarity instead of '..'
+UPLOADED = BASE_DIR.parent / 'images' / 'uploaded'
+DOWNLOADED = BASE_DIR.parent / 'images' / 'downloaded'
+
+# Convert to absolute paths
+UPLOADED = UPLOADED.resolve()
+DOWNLOADED = DOWNLOADED.resolve()
