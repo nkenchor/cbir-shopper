@@ -21,11 +21,17 @@ def download_googlenews_vector(base_directory=BASE_DIR):
     LOADED_MODEL = load_model(MODEL_PATH)
 
 def load_model(model_path):
+    global LOADED_MODEL
+    
+    if LOADED_MODEL is not None:
+        return LOADED_MODEL
+
     try:
-        return gensim.models.KeyedVectors.load_word2vec_format(model_path, binary=True)
+        LOADED_MODEL = gensim.models.KeyedVectors.load_word2vec_format(model_path, binary=True)
+        return LOADED_MODEL
     except Exception as e:
-        print(f"Error loading model: {e}")
-        return None
+        raise Exception(f"Error loading model: {e}")
+
 
 def get_or_load_nlp_model():
     global LOADED_MODEL
