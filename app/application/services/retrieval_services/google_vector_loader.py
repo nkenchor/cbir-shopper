@@ -7,7 +7,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 NLP_NAME = 'GoogleNews-vectors-negative300.bin'
 GOOGLENEWS_VECTORS_URL = "http://vectors.nlpl.eu/repository/11/1.zip"
 MODEL_PATH = os.path.join(BASE_DIR, 'model', 'pretrained', NLP_NAME)
-LOADED_MODEL = gensim.models.KeyedVectors.load_word2vec_format(MODEL_PATH, binary=True)
+LOADED_MODEL = None
 
 def model_exists():
     return os.path.isfile(MODEL_PATH)

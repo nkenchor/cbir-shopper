@@ -168,6 +168,7 @@ app/infrastructure/images/uploaded/*
 # But don't ignore the .gitkeep file
 !app/infrastructure/images/downloaded/.gitkeep
 !app/infrastructure/images/uploaded/.gitkeep
+!app/application/services/retrieval_services/model/.gitkeep
 
 *.pth
 *.h5
