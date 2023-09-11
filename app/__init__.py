@@ -8,6 +8,9 @@ import app.application.services.yolo_services.yolo_loader as yolo_loader
 import app.application.services.retrieval_services.google_vector_loader as google_loader
 import app.application.services.resnet_services.resnet_loader as resnet_loader
 from app.infrastructure.utilities.database_utils import setup_db
+from app.application.services.retrieval_services import google_vector_loader as google_loader
+
+
 from flasgger import Swagger
 
 def download_models():
@@ -18,6 +21,7 @@ def download_models():
     google_loader.get_or_load_nlp_model()
     print("Downloading Resnet models...")
     resnet_loader.get_or_load_resnet_models()
+    google_loader.LOADED_MODEL = google_loader.load_google_model()
 
 def create_app():
     app = Flask(__name__)
