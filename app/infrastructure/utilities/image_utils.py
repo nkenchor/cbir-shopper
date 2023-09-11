@@ -6,18 +6,17 @@ from flask import jsonify, request
 from app.infrastructure.utilities import api_utils as utils
 from pathlib import Path
 
-
-
 # Using pathlib to get the directory of the current file
-BASE_DIR = Path(__file__).parent
+BASE_DIR = None
+# Getting the parent directory of the BASE_DIR
+ROOT_DIR = None
 
-# Define directories using parent for clarity instead of '..'
-UPLOADED = BASE_DIR.parent / 'images' / 'uploaded'
-DOWNLOADED = BASE_DIR.parent / 'images' / 'downloaded'
+# Define directories using the ROOT_DIR
+IMAGE_DIR = None
+UPLOADED = None
+DOWNLOADED = None
+SAMPLES = None
 
-# Convert to absolute paths
-UPLOADED = UPLOADED.resolve()
-DOWNLOADED = DOWNLOADED.resolve()
 
 def handle_image_upload():
     """
