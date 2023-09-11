@@ -21,7 +21,7 @@ def download_models():
     google_loader.get_or_load_nlp_model()
     print("Downloading Resnet models...")
     resnet_loader.get_or_load_resnet_models()
-    google_loader.LOADED_MODEL = google_loader.load_google_model()
+
 
 def create_app():
     app = Flask(__name__)
