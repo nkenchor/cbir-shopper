@@ -11,6 +11,7 @@ from app.infrastructure.utilities import image_utils as img
 from app.application.services.resnet_services import feature_extraction_with_resnet as feature_extraction
 from werkzeug.utils import secure_filename
 import glob
+from flask import Flask, send_from_directory, jsonify
 
 
 
@@ -475,3 +476,68 @@ def retrieve_similar_images(image_uuid):
     return jsonify(similar_images)
 
 
+@api.route('/display_image/<image_uuid>',methods=['POST'])
+def display_image(image_uuid):
+    """
+    Display an image from the DOWNLOADED directory.
+    ---
+    tags:
+      - Display Image
+    parameters:
+      - in: path
+        name: image_uuid
+        type: string
+        required: true
+        description: The unique identifier for the uploaded image.
+      - in: body
+        name: body
+        required: true
+        description: The asin(product id) of the displayed item from amazon.
+        schema:
+          type: object
+          properties:
+            asin:
+              type: string
+              description: The product id(asin) to use for getting the image from the downloaded directory
+              required: true
+    responses:
+      200:
+        description: Downloaded image
+        schema:
+          type: array
+          items:
+            type: object
+            properties:
+              # You might need to adjust these properties based on the actual structure of your response
+              image:
+                type: string
+                description: Path or identifier of the image
+      400:
+        description: Asin(product Id) not provided in the request
+        schema:
+          type: object
+          properties:
+            error:
+              type: string
+              description: Error message
+      500:
+        description: Unexpected error during processing
+        schema:
+          type: object
+          properties:
+            error:
+              type: string
+              description: Error message
+    """
+    data = request.get_json()
+    if not data or 'asin' not in data:
+      return jsonify(error="Product Id (Asin) is required"),400
+    asin = data['asin']
+    filename = f"{image_uuid}.{asin}.jpg"
+    image_path = img.fetch_image_from_downloaded()
+    print("filename:",filename)
+    print("image path:",image_path)
+    if image_path:
+        return send_from_directory(image_path, filename, as_attachment=False)
+    else:
+        return jsonify(error="Image not found."), 404

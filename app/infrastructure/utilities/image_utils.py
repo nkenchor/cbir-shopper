@@ -54,3 +54,13 @@ def download_image(url, filename):
     else:
         # Handle failure, e.g., log the error or raise an exception
         pass
+
+
+def fetch_image_from_downloaded():
+    """
+    Fetch the image from the DOWNLOADED directory based on the filename.
+    """
+    image_path = Path(DOWNLOADED) 
+    if not image_path.exists():
+        return None
+    return image_path
