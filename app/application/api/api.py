@@ -390,8 +390,10 @@ def hybrid_classification(image_uuid):
         yolo_results = yolo_classification.classify_objects_with_yolo(file_path)
         resnet_results = resnet_classification.classify_objects_with_resnet(file_path)
 
+        yolo_processing_time = yolo_results['processing_time_seconds']
+        resnet_processing_time = resnet_results['processing_time_seconds']
+
         yolo_classifications = yolo_results['classifications']
-        
         resnet_classifications = [r for r in resnet_results['classifications'] if float(r["confidence"].strip('%')) > 40]
 
         ensemble_results = []
@@ -404,7 +406,11 @@ def hybrid_classification(image_uuid):
             result["source"] = "ResNet"
             ensemble_results.append(result)
 
-        return jsonify(classifications=ensemble_results), 200
+        return jsonify(
+            classifications=ensemble_results, 
+            yolo_processing_time=yolo_processing_time, 
+            resnet_processing_time=resnet_processing_time
+        ), 200
     except Exception as e:
         return jsonify(error=f"Error processing image: {str(e)}"), 500
 
