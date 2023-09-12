@@ -34,7 +34,7 @@ def search_product_by_keyword(filename,keyword,no_of_pages):
                 "product_star_rating": product.product_star_rating,
                 "product_num_ratings": product.product_num_ratings,
                 "product_url": product.product_url,
-                "product_photo": os.path.join(img.DOWNLOADED, image_filename),  # Update to local path
+                "product_photo": os.path.join('images', image_filename),  # Update to local path
                 "product_num_offers": product.product_num_offers,
                 "product_minimum_offer_price": product.product_minimum_offer_price,
                 "is_best_seller": product.is_best_seller,
