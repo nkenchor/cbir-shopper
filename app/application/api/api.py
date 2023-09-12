@@ -11,7 +11,7 @@ from app.infrastructure.utilities import image_utils as img
 from app.application.services.resnet_services import feature_extraction_with_resnet as feature_extraction
 from werkzeug.utils import secure_filename
 import glob
-from flask import Flask, send_from_directory, jsonify
+from flask import Flask, send_from_directory, jsonify, render_template
 
 
 
@@ -20,7 +20,7 @@ api = Blueprint('api', __name__)
 
 @api.route('/', methods=['GET'])
 @cross_origin()
-def hello_world():
+def index():
     """
     This is the hello world endpoint
     ---
@@ -28,7 +28,7 @@ def hello_world():
       200:
         description: Returns a hello message
     """
-    return jsonify(message="Hello, this is my CBIR app"), 200
+    return render_template('index.html')
 
 @api.route('/upload_image', methods=['POST'])
 def upload_image():
@@ -267,7 +267,7 @@ def search_product(image_uuid):
       - in: body
         name: body
         required: true
-        description: Search parameters including keyword and number of pages.
+        description: Search parameters including keyword and number of pages (use pages 5).
         schema:
           type: object
           properties:
