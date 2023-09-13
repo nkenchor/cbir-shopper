@@ -56,7 +56,7 @@ def retrieve_similar_images(image_uuid, uploaded_dir, downloaded_dir, metric="eu
     uploaded_image_path = os.path.join(uploaded_dir, f"{image_uuid}.*")
     image_path = Path(uploaded_image_path)
     if not image_path.exists():
-        return jsonify(error=f"No image found for UUID: {image_uuid}"), 404
+        return []
       
     uploaded_image_path = glob.glob(uploaded_image_path)[0]
     

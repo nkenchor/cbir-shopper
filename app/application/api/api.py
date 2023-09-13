@@ -473,6 +473,9 @@ def retrieve_similar_images(image_uuid):
               type: string
               description: Error message
     """
+    file_paths = glob.glob(os.path.join(img.UPLOADED, f"{image_uuid}.*"))
+    if not file_paths:
+        return jsonify(error="Image not found for the provided UUID."), 404
     data = request.get_json()
     if not data or 'algo' not in data:
         return jsonify(error="Algorithm is required, like euclidean."), 400
