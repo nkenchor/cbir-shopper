@@ -54,10 +54,7 @@ def search_product_by_keyword(filename,keyword,no_of_pages):
 
 def retrieve_similar_images(image_uuid, uploaded_dir, downloaded_dir, metric="euclidean"):
     uploaded_image_path = os.path.join(uploaded_dir, f"{image_uuid}.*")
-    image_path = Path(uploaded_image_path)
-    if not image_path.exists():
-        return []
-      
+ 
     uploaded_image_path = glob.glob(uploaded_image_path)[0]
     
     uploaded_image_features = feature_extraction.extract_features(uploaded_image_path)
