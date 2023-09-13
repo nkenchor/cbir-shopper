@@ -55,7 +55,7 @@ def retrieve_similar_images(image_uuid, uploaded_dir, downloaded_dir, metric="eu
     uploaded_image_path = os.path.join(uploaded_dir, f"{image_uuid}.*")
     uploaded_image_path = glob.glob(uploaded_image_path)[0]
     uploaded_image_features = feature_extraction.extract_features(uploaded_image_path)
-    
+    downloaded_dir = os.path.join(downloaded_dir)
     image_scores = {}
     image_similarities = {}  # To store similarity scores
     relevant_images = [img for img in os.listdir(downloaded_dir) if img.startswith(image_uuid) and img.endswith((".jpg", ".jpeg", ".png"))]
