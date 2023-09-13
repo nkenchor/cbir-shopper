@@ -478,7 +478,7 @@ def retrieve_similar_images(image_uuid):
         return jsonify(error="Algorithm is required, like euclidean."), 400
     
     algo = data['algo']
-    similar_images = image_retrieval.retrieve_similar_images(image_uuid, img.UPLOADED, img.DOWNLOADED, algo)
+    similar_images = image_retrieval.retrieve_similar_images(image_uuid, img.UPLOADED, "images", algo)
     return jsonify(similar_images)
 
 
