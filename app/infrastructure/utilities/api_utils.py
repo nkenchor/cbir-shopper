@@ -2,7 +2,7 @@ import requests
 # from decouple import config
 
 RAPIDAPI_ENDPOINT = 'https://real-time-amazon-data.p.rapidapi.com/search'
-RAPIDAPI_KEY = '91df5b2adcmshb34854cbb25b789p1d5d11jsn6d4b6bc13b42'
+RAPIDAPI_KEY = 'f717cbf88bmsh2e14ff4bc416996p15bcb1jsn674ffc512391'
 RAPIDAPI_HOST = 'real-time-amazon-data.p.rapidapi.com'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
